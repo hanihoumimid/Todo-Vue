@@ -16,7 +16,7 @@
   <h1>Data</h1>
 
   <ul>
-    <li v-for="x in list" :key="x.title">{{ x.title }} : {{ x.etat }}</li>
+    <li v-for="x in list" :key="x.id">{{ x.title }} : {{ x.etat }}</li>
   </ul>
 </template>
 
@@ -31,9 +31,16 @@ const form = ref({
 const list = ref([])
 
 const addTask = () => {
-  list.value.push(form.value)
+  if (!form.value.title) {
+    return
+  }
 
+  const new_task = {
+    id: Date.now(),
+    ...form.value,
+  }
+  list.value.push(new_task)
   form.value.title = ''
-  form.value.title = ''
+  form.value.etat = ''
 }
 </script>
